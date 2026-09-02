@@ -116,3 +116,5 @@ CREATE TRIGGER trigger_validar_email
 BEFORE INSERT OR UPDATE ON usuarios
 FOR EACH ROW
 EXECUTE FUNCTION validar_email();
+
+

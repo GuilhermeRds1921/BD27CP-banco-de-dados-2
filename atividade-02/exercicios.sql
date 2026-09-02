@@ -2,7 +2,7 @@
 -- Luiz Eduardo Caldas Kramer
 
 
--- Exercício 1: Criar as constraints após as tabelas.
+-- Exercício 1: Criar as constraints após as tabelas. 
 
 -- Chave primária da tabela Aluno
 ALTER TABLE Aluno ADD PRIMARY KEY (RA);
@@ -22,7 +22,7 @@ CREATE UNIQUE INDEX IdxAlunoNNI ON Aluno (Nome, NomeMae, Idade);
 
 -- 1. Escreva uma consulta que utilize esse índice.
 EXPLAIN ANALYZE
-SELECT * FROM Aluno
+SELECT * FROM Aluno 
 WHERE Nome = 'João'
   AND NomeMae = 'Helena'
   AND Idade = 23;
@@ -36,7 +36,7 @@ WHERE Idade = 23;
 
 
 -- Exercício 3) Crie Índices e mostre exemplos de consultas (resultados e explain) que usam os seguintes tipos de acessos:
-
+ 
 -- a) Sequential Scan
 EXPLAIN ANALYZE
 SELECT * FROM Aluno WHERE Curso  LIKE '%Engenharia%';
@@ -91,7 +91,7 @@ JOIN Discip D ON M.Sigla = D.Sigla
 WHERE D.Depto = 'INF';
 
 -- Exercício 5 - Utilizar índice bitmap para periodo:
-EXPLAIN ANALYZE
+EXPLAIN ANALYZE 
 SELECT * FROM Aluno WHERE periodo BETWEEN 3 AND 5;
 
 
@@ -105,7 +105,7 @@ SELECT * FROM Aluno WHERE RA BETWEEN 10000000 AND 10001234;
 
 -- Clusterizando a tabela
 CLUSTER Aluno USING idx_aluno_ra_cluster;
-ANALYZE Aluno;
+ANALYZE Aluno; 
 
 EXPLAIN ANALYZE
 SELECT * FROM Aluno WHERE RA BETWEEN 10000000 AND 10001234;
@@ -123,11 +123,11 @@ SET informacoesExtras = jsonb_build_object(
 WHERE informacoesExtras IS NULL;
 
 
-CREATE INDEX idx_informacoesExtras_time
-ON Aluno
+CREATE INDEX idx_informacoesExtras_time 
+ON Aluno 
 USING GIN (informacoesExtras jsonb_path_ops);
 
 
-EXPLAIN ANALYZE
-SELECT * FROM Aluno
+EXPLAIN ANALYZE 
+SELECT * FROM Aluno 
 WHERE informacoesExtras @> '{"time": "Santos"}';
